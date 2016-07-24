@@ -9,8 +9,21 @@
 var bannedSites = ["facebook", "mail.google"];
 var activeTabs = [];
 var currentTab = {};
+var currentId;
 
-chrome.tabs.onUpdated.addListener(function() {
+
+chrome.tabs.onCreated.addListener(getUpdatedTabs);
+chrome.tabs.onRemoved.addListener(getUpdatedTabs);
+
+chrome.tabs.onActivated.addListener(setCurrentId)
+
+function setCurrentId (tab) {
+  currentId = tab.tabId;
+  console.log(currentId);
+}
+
+function getUpdatedTabs() {
+  console.log("updated tabs called");
   chrome.windows.getAll({populate: true}, function(list) {
     // console.log(list)
     activeTabs = [];
@@ -31,19 +44,12 @@ chrome.tabs.onUpdated.addListener(function() {
               });
             }
           }
-        } else {
-          activeTabs.push({
-            windowId    : list[i].id,
-            tabId       : tab.id,
-            url         : tab.url,
-            index       : tab.index
-          });
         }
       }
     }
   })
   console.log(activeTabs)
-})
+}
 
 
 
@@ -65,10 +71,12 @@ chrome.tabs.onUpdated.addListener(function() {
 // })
 
 function shuffleTabs(tabObj) {
-  chrome.tabs.move(tabObj.tabToMove, { windowId : tabObj.windowId, index : tabObj.index }, function() {
-    // chrome.tabs.remove(tabObj.tabId);
-    // chrome.tabs.update(tabObj.tabToMove, { selected : true })
-  })
+  chrome.tabs.move(tabObj.tabToMove, { windowId : tabObj.windowId, index : tabObj.index }, function() {})
+
+  chrome.tabs.remove(tabObj.tabId);
+
+  chrome.tabs.update(tabObj.tabToMove, { selected : true })
+
 }
 
 // function moveTabs() {
@@ -107,9 +115,11 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   var url = tab.url;
   if (url != undefined && changeInfo.status == "loading") {
     for (var site = 0; site < activeTabs.length; site++) {
+      console.log("main function fired");
       var bannedSite = activeTabs[site]
       console.log(activeTabs[site])
-      if (url.indexOf(bannedSite.banUrl) != -1) {
+
+      if (url.indexOf(bannedSite.banUrl) != -1 && tabId != bannedSite.tabId) {
         thisTab = {
           tabToMove   : bannedSite.tabId,
           windowId    : tab.windowId,
@@ -118,13 +128,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         }
         shuffleTabs(thisTab);
         console.log(thisTab)
-        console.log(bannedSite)
-        console.log(bannedSite + " Exists")
+        // console.log(bannedSite)
+        // console.log(bannedSite + " Exists")
         return;
         // console.log("This tab info: " + JSON.stringify(thisTab));
       }
     }
   }
+
 })
 
 
