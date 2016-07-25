@@ -11,16 +11,40 @@ chrome.storage.sync.get("bannedSites", function(obj) {
 })
 
 
-document.getElementById("ban-list").textContent = "Hello";
-
-
 function createListItems(obj) {
-  console.log(obj.bannedSites);
   var theList = document.getElementById("ban-list");
-  console.log(theList);
-  for (var site = 0; site < obj.bannedSites.length; site++) {
-    var content = document.createElement("li");
-    content.innerHTML = obj.bannedSites[site];
-    theList.appendChild(content)
+
+  if (obj.bannedSites.length > 0){
+    for (var site = 0; site < obj.bannedSites.length; site++) {
+      var content = document.createElement("li");
+      content.innerHTML = obj.bannedSites[site];
+      theList.appendChild(content)
+    }
+  } else {
+    console.log("empty list");
   }
 }
+
+
+$("#submit").submit(function() {
+  // e.preventDefault();
+  var content = $("#add-new").val();
+  chrome.storage.sync.get("bannedSites", function(obj) {
+    obj.bannedSites.push(content);
+
+    chrome.storage.sync.set(obj);
+    createListItems();
+    console.log(obj);
+  })
+  console.log(content);
+})
+
+$("#reset").click(function() {
+  chrome.storage.sync.get("bannedSites", function(obj) {
+    obj.bannedSites = [];
+    chrome.storage.sync.set(obj)
+    console.log(obj);
+
+    $("ban-list").empty();
+  })
+})

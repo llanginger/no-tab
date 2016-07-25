@@ -10,10 +10,12 @@
 }
 
 #ban-list {
+  background-color: white;
   max-width: 100%;
   max-height: 100px;
   overflow-y: scroll;
   border: 1px black solid;
+  padding: 10px 0px 10px 10px;
 }
 
 #reset, #add-new {

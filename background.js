@@ -1,21 +1,27 @@
 
 
-// chrome.storage.sync.set({"search_terms": activeTabs})
+// chrome.storage.sync.set({"bannedSites": []})
 
 
 // TODO: This code clears the sync storage
 // chrome.storage.sync.clear(function() {});
-var storage = {};
+var bannedSites = [];
 chrome.storage.sync.get("bannedSites", function(obj) {
   if (obj.bannedSites) {
-    console.log(obj.bannedSites)
+    bannedSites = obj.bannedSites;
+    console.log("current bannedSites storage: " + bannedSites)
   } else {
     console.log("No storage found");
   }
 })
 
+chrome.storage.onChanged.addListener(function(changes, areaName) {
+  bannedSites = changes.bannedSites.newValue;
+  console.log("current bannedSites storage now: " + bannedSites);
+  // console.log(changes.bannedSites);
+})
 
-var bannedSites    = [".facebook", "mail.google"];
+// var bannedSites    = [".facebook", "mail.google"];
 
 var activeTabs     = [];
 var excludeSites   = [];
