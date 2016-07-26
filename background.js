@@ -12,7 +12,7 @@ chrome.storage.sync.get("bannedSites", function(obj) {
     console.log("current bannedSites storage: " + bannedSites)
   } else {
     console.log("Initializing storage");
-    chrome.storage.sync.set({"bannedSites": []})
+    chrome.storage.sync.set({"bannedSites": [".facebook", "mail.google"]})
   }
 })
 
