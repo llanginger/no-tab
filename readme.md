@@ -1,5 +1,7 @@
 # Tabulatr...
 
+<img src="tabulatr.png" />
+
 ... is my first shot at a chrome extension. As of now the project is heavily work in progress, so expect any experience with it to be shaky. I'll be iterating on it daily, so if you're interested, check back every now and then!
 
 ## Premise:
