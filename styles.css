@@ -18,7 +18,7 @@
   padding: 10px 0px 10px 10px;
 }
 
-#reset, #add-new {
+#reset, #add-new, #remove-last {
   width: 100%;
   margin-left: auto;
   margin-right: auto;

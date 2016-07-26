@@ -14,6 +14,7 @@ chrome.storage.sync.get("bannedSites", function(obj) {
 function createListItems(obj) {
   var theList = document.getElementById("ban-list");
 
+
   if (obj.bannedSites.length > 0){
     for (var site = 0; site < obj.bannedSites.length; site++) {
       var content = document.createElement("li");
@@ -37,6 +38,15 @@ $("#submit").submit(function() {
     console.log(obj);
   })
   console.log(content);
+})
+
+$("#remove-last").click(function() {
+  chrome.storage.sync.get("bannedSites", function(obj) {
+    obj.bannedSites.pop();
+    chrome.storage.sync.set(obj)
+    console.log(obj);
+    createListItems();
+  })
 })
 
 $("#reset").click(function() {

@@ -15,9 +15,10 @@ chrome.storage.sync.get("bannedSites", function(obj) {
   }
 })
 
-chrome.storage.onChanged.addListener(function(changes, areaName) {
+chrome.storage.onChanged.addListener(function listenToChanges(changes, areaName) {
   bannedSites = changes.bannedSites.newValue;
   console.log("current bannedSites storage now: " + bannedSites);
+  getUpdatedTabs();
   // console.log(changes.bannedSites);
 })
 
@@ -48,10 +49,12 @@ function setCurrentId ( tab ) {
 }
 
 function getUpdatedTabs() {
+
   console.log("updated tabs called");
   chrome.windows.getAll( { populate: true }, function( list ) {
-    // console.log(list)
     activeTabs = [];
+    console.log("This should be empty: " + activeTabs)
+    // console.log(list)
     for ( var i in list ) {
       var tabs = list[i].tabs;
       for ( var j in tabs ) {
@@ -72,8 +75,10 @@ function getUpdatedTabs() {
         }
       }
     }
+    console.log("Active tabs now: ")
+    console.log( activeTabs )
   })
-  console.log( activeTabs )
+
 }
 
 
