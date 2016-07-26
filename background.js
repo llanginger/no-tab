@@ -11,7 +11,8 @@ chrome.storage.sync.get("bannedSites", function(obj) {
     bannedSites = obj.bannedSites;
     console.log("current bannedSites storage: " + bannedSites)
   } else {
-    console.log("No storage found");
+    console.log("Initializing storage");
+    chrome.storage.sync.set({"bannedSites": []})
   }
 })
 
@@ -131,7 +132,12 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
 
 })
 
-getUpdatedTabs()
+function init() {
+  getUpdatedTabs();
+  console.log("init called");
+}
+
+init();
 
 // TODO:
 // Set up a content script to do the following: Detect if a link was clicked on and if so, disable Tabulatr functionality AND add the resulting page to a special exclusion list.
