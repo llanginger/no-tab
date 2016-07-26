@@ -1,11 +1,25 @@
 
+body {
+  margin: 0px;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+p {
+  padding: 5px;
+  background-color: #BBDEFB;
+  border: 3px solid #512DA8;
+}
 
 #tabulatr {
   display: inline-block;
-  height: 300px;
+  /*height: 300px;*/
   width: 200px;
-  background: honeydew;
-  border: red solid 3px;
+  background: #03A9F4;
+  /*border: red solid 3px;*/
   padding: 10px;
 }
 
@@ -16,12 +30,31 @@
   overflow-y: scroll;
   border: 1px black solid;
   padding: 10px 0px 10px 10px;
+  border: 3px solid #512DA8;
 }
 
-#reset, #add-new, #remove-last {
+#add-new {
+  border: 3px solid #512DA8;
+  outline: none;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10px;
   padding: 10px;
+}
+
+#reset, #remove-last, #submit-new {
+  box-shadow: 3px 3px 5px #444;
+  border: none;
+  color: white;
+  background-color: #512DA8;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+#reset:hover, #remove-last:hover, #submit-new:hover {
+  box-shadow: 1px 1px 3px #444;
 }

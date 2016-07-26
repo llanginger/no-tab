@@ -6,15 +6,17 @@
 // TODO: This code clears the sync storage
 // chrome.storage.sync.clear(function() {});
 var bannedSites = [];
-chrome.storage.sync.get("bannedSites", function(obj) {
-  if (obj.bannedSites) {
-    bannedSites = obj.bannedSites;
-    console.log("current bannedSites storage: " + bannedSites)
-  } else {
-    console.log("Initializing storage");
-    chrome.storage.sync.set({"bannedSites": [".facebook", "mail.google"]})
-  }
-})
+function initializeStorage() {
+  chrome.storage.sync.get("bannedSites", function(obj) {
+    if (obj.bannedSites) {
+      bannedSites = obj.bannedSites;
+      console.log("current bannedSites storage: " + bannedSites)
+    } else {
+      console.log("Initializing storage");
+      chrome.storage.sync.set({"bannedSites": [".facebook", "mail.google"]})
+    }
+  })
+}
 
 chrome.storage.onChanged.addListener(function listenToChanges(changes, areaName) {
   bannedSites = changes.bannedSites.newValue;
@@ -133,6 +135,7 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
 })
 
 function init() {
+  initializeStorage()
   getUpdatedTabs();
   console.log("init called");
 }
