@@ -63,9 +63,9 @@ function getUpdatedTabs() {
       for ( var j in tabs ) {
         var tab = tabs[j]
         // If there are any sites added to the ban list:
-        if ( bannedSites) {
+        if ( bannedSites ) {
           for ( var site in bannedSites ) {
-            if ( tab.url.indexOf( bannedSites[site] ) !== -1 ){
+            if ( tab.url.indexOf( bannedSites[site] ) !== -1 && excludeSites.indexOf( tab.id ) === -1 ){
               activeTabs.push({
                 banUrl    : bannedSites[site],
                 windowId  : list[i].id,
@@ -114,6 +114,12 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
       console.log( "main function fired" );
       var bannedSite = activeTabs[site]
       console.log( activeTabs[site] )
+
+      if ( url.indexOf( "?" ) > 0 ) {
+        excludeSites.push( tab.id );
+        console.log( excludeSites );
+        return;
+      }
 
       if ( url.indexOf( bannedSite.banUrl ) !== -1 && tabId !== bannedSite.tabId ) {
         thisTab = {
