@@ -19,3 +19,7 @@ At the moment the functionality is pretty bare-bones. When you first load the ex
 Lastly - the functionality of the extension is mostly consistent but it sometimes "forgets" a tab. This is being worked on!
 
 Have fun!
+
+## Update 08/03/2016:
+
+Added the beginnings of functionality for exceptions in specific situations. Currently, opening a "compose message" gmail (or other webmail service if you are ignoring them with the extension) link from craigslist (have not yet tested with other sites) will open up a new tab that is completely ignored by the extension. 

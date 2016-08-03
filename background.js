@@ -7,20 +7,20 @@
 // chrome.storage.sync.clear(function() {});
 var bannedSites = [];
 function initializeStorage() {
-  chrome.storage.sync.get("bannedSites", function(obj) {
+  chrome.storage.sync.get( "bannedSites", function(obj) {
     if (obj.bannedSites) {
       bannedSites = obj.bannedSites;
       console.log("current bannedSites storage: " + bannedSites)
     } else {
       console.log("Initializing storage");
-      chrome.storage.sync.set({"bannedSites": [".facebook", "mail.google"]})
+      chrome.storage.sync.set( { "bannedSites": [".facebook", "mail.google"] } )
     }
   })
 }
 
-chrome.storage.onChanged.addListener(function listenToChanges(changes, areaName) {
+chrome.storage.onChanged.addListener( function listenToChanges( changes, areaName ) {
   bannedSites = changes.bannedSites.newValue;
-  console.log("current bannedSites storage now: " + bannedSites);
+  console.log( "current bannedSites storage now: " + bannedSites );
   getUpdatedTabs();
   // console.log(changes.bannedSites);
 })
@@ -34,10 +34,10 @@ var currentId;
 
 function onRequest(request, sender, sendResponse) {
   alert(request);
-  sendResponse("Click registered");
+  sendResponse( "Click registered" );
 }
 
-chrome.extension.onMessage.addListener(onRequest);
+chrome.extension.onMessage.addListener( onRequest );
 
 
 chrome.tabs.onCreated.addListener( getUpdatedTabs );
@@ -53,7 +53,7 @@ function setCurrentId ( tab ) {
 
 function getUpdatedTabs() {
 
-  console.log("updated tabs called");
+  console.log( "updated tabs called" );
   chrome.windows.getAll( { populate: true }, function( list ) {
     activeTabs = [];
     console.log("This should be empty: " + activeTabs)
@@ -78,7 +78,7 @@ function getUpdatedTabs() {
         }
       }
     }
-    console.log("Active tabs now: ")
+    console.log( "Active tabs now: " )
     console.log( activeTabs )
   })
 
@@ -86,7 +86,7 @@ function getUpdatedTabs() {
 
 
 function tabulatr( tabObj ) {
-  chrome.tabs.move( tabObj.tabToMove, { windowId : tabObj.windowId, index : tabObj.index }, function() {} )
+  chrome.tabs.move(   tabObj.tabToMove, { windowId : tabObj.windowId, index : tabObj.index }, function() {} )
   chrome.tabs.remove( tabObj.tabId );
   chrome.tabs.update( tabObj.tabToMove, { selected : true } )
 }
@@ -115,7 +115,8 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
       var bannedSite = activeTabs[site]
       console.log( activeTabs[site] )
 
-      if ( url.indexOf( "?" ) > 0 ) {
+      // Starting to add exceptions to be added to excludeSites
+      if ( url.indexOf( "?view=cm" ) > 0 || url.indexOf( "compose" ) > 0 ) {
         excludeSites.push( tab.id );
         console.log( excludeSites );
         return;
@@ -143,7 +144,7 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
 function init() {
   initializeStorage()
   getUpdatedTabs();
-  console.log("init called");
+  console.log( "init called" );
 }
 
 init();
