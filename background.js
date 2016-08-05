@@ -13,7 +13,7 @@ function initializeStorage() {
       console.log("current bannedSites storage: " + bannedSites)
     } else {
       console.log("Initializing storage");
-      chrome.storage.sync.set( { "bannedSites": [".facebook", "mail.google"] } )
+      chrome.storage.sync.set( { "bannedSites": ["https://www.facebook.com/", "https://mail.google.com/mail/u/0/#inbox"] } )
     }
   })
 }
@@ -169,19 +169,27 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
         return;
       }
 
+
+
       if ( url.indexOf( bannedSite.banUrl ) !== -1 && tabId !== bannedSite.tabId ) {
-        thisTab = {
-          tabToMove   : bannedSite.tabId,
-          windowId    : tab.windowId,
-          index       : tab.index,
-          tabId       : tab.id
+        if ( url.length > bannedSite.banUrl.length ) {
+          excludeSites.push( tab.id );
+          console.log( excludeSites );
+          return;
+        } else {
+          thisTab = {
+            tabToMove   : bannedSite.tabId,
+            windowId    : tab.windowId,
+            index       : tab.index,
+            tabId       : tab.id
+          }
+          tabulatr( thisTab );
+          console.log( thisTab )
+          // console.log(bannedSite)
+          // console.log(bannedSite + " Exists")
+          return;
+          // console.log("This tab info: " + JSON.stringify(thisTab));
         }
-        tabulatr( thisTab );
-        console.log( thisTab )
-        // console.log(bannedSite)
-        // console.log(bannedSite + " Exists")
-        return;
-        // console.log("This tab info: " + JSON.stringify(thisTab));
       }
     }
   }
