@@ -25,8 +25,6 @@ chrome.storage.onChanged.addListener( function listenToChanges( changes, areaNam
   // console.log(changes.bannedSites);
 })
 
-// var bannedSites    = [".facebook", "mail.google"];
-
 var activeTabs     = [];
 var excludeSites   = [];
 var currentTab     = {};
@@ -93,41 +91,12 @@ function getUpdatedTabs() {
 
 }
 
-// function getUpdatedTabs() {
-//
-//   console.log( "updated tabs called" );
-//   chrome.windows.getAll( { populate: true }, function( list ) {
-//     activeTabs = [];
-//     console.log("This should be empty: " + activeTabs)
-//     // console.log(list)
-//     for ( var i in list ) {
-//       var tabs = list[i].tabs;
-//       for ( var j in tabs ) {
-//         var tab = tabs[j]
-//         // If there are any sites added to the ban list:
-//         if ( bannedSites ) {
-//           for ( var site in bannedSites ) {
-//             if ( tab.url === bannedSites[site] && excludeSites.indexOf( tab.id ) === -1 ){
-//               activeTabs.push({
-//                 banUrl    : bannedSites[site],
-//                 windowId  : list[i].id,
-//                 tabId     : tab.id,
-//                 url       : tab.url,
-//                 index     : tab.index
-//               });
-//             }
-//           }
-//         }
-//       }
-//     }
-//     console.log( "Active tabs now: " )
-//     console.log( activeTabs )
-//   })
-//
-// }
-
 
 function tabulatr( tabObj ) {
+  if (tabObj.tabUrl) {
+    console.log("redirect url found")
+    chrome.tabs.update( tabObj.tabToMove, { url : tabObj.tabUrl })
+  }
   chrome.tabs.move(   tabObj.tabToMove, { windowId : tabObj.windowId, index : tabObj.index }, function() {} )
   chrome.tabs.remove( tabObj.tabId );
   chrome.tabs.update( tabObj.tabToMove, { selected : true } )
@@ -173,9 +142,14 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
 
       if ( url.indexOf( bannedSite.banUrl ) !== -1 && tabId !== bannedSite.tabId ) {
         if ( url.length > bannedSite.banUrl.length ) {
-          excludeSites.push( tab.id );
-          console.log( excludeSites );
-          return;
+          console.log("longer link clicked")
+          thisTab = {
+            tabToMove   : bannedSite.tabId,
+            windowId    : tab.windowId,
+            index       : tab.index,
+            tabId       : tab.id,
+            tabUrl      : tab.url
+          }
         } else {
           thisTab = {
             tabToMove   : bannedSite.tabId,
@@ -183,52 +157,17 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
             index       : tab.index,
             tabId       : tab.id
           }
-          tabulatr( thisTab );
-          console.log( thisTab )
-          // console.log(bannedSite)
-          // console.log(bannedSite + " Exists")
-          return;
-          // console.log("This tab info: " + JSON.stringify(thisTab));
         }
+        tabulatr( thisTab );
+        console.log( thisTab )
+        // console.log(bannedSite)
+        // console.log(bannedSite + " Exists")
+        return;
+        // console.log("This tab info: " + JSON.stringify(thisTab));
       }
     }
   }
-
 })
-
-// chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo, tab ) {
-//   var url = tab.url;
-//   if ( url != undefined && changeInfo.status === "loading" ) {
-//     for ( var site = 0; site < activeTabs.length; site++ ) {
-//       console.log( "main function fired" );
-//       var bannedSite = activeTabs[site]
-//       console.log( activeTabs[site] )
-//
-//       // Starting to add exceptions to be added to excludeSites
-//       if ( url.indexOf( "?view=cm" ) > 0 || url.indexOf( "compose" ) > 0 ) {
-//         excludeSites.push( tab.id );
-//         console.log( excludeSites );
-//         return;
-//       }
-//
-//       if ( url === bannedSite.banUrl && tabId !== bannedSite.tabId ) {
-//         thisTab = {
-//           tabToMove   : bannedSite.tabId,
-//           windowId    : tab.windowId,
-//           index       : tab.index,
-//           tabId       : tab.id
-//         }
-//         tabulatr( thisTab );
-//         console.log( thisTab )
-//         // console.log(bannedSite)
-//         // console.log(bannedSite + " Exists")
-//         return;
-//         // console.log("This tab info: " + JSON.stringify(thisTab));
-//       }
-//     }
-//   }
-//
-// })
 
 function init() {
   initializeStorage()
@@ -237,11 +176,6 @@ function init() {
 }
 
 init();
-
-// TODO:
-// Set up a content script to do the following: Detect if a link was clicked on and if so, disable Tabulatr functionality AND add the resulting page to a special exclusion list.
-
-
 
 
 // TODO: Add NEW check against new tabs - make this check non-fuzzy and check against a full url. This might necessitate regexing to allow the first instance of the banned tab to still be fuzzy (to remove the www. and .com/*) Also, consider adding toggle buttons for "common" services like gmail, yahoo, other sites people might want to use
