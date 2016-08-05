@@ -8,7 +8,7 @@
 var bannedSites = [];
 function initializeStorage() {
   chrome.storage.sync.get( "bannedSites", function(obj) {
-    if (obj.bannedSites) {
+    if ( obj.bannedSites.length > 0 ) {
       bannedSites = obj.bannedSites;
       console.log("current bannedSites storage: " + bannedSites)
     } else {

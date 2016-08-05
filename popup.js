@@ -1,14 +1,19 @@
 var console = chrome.extension.getBackgroundPage().console;
 
+
 chrome.storage.sync.get("bannedSites", function(obj) {
   if (obj.bannedSites) {
-    // alert("found storage");
+    if (obj.bannedSites.indexOf( "https://www.facebook.com/" ) > -1 ) {
+      console.log("prop found")
+      $(".facebook").prop("checked", true);
+    }
     console.log("Found storage");
     createListItems(obj);
   } else {
     console.log("No storage found");
   }
 })
+
 
 
 function createListItems(obj) {
