@@ -54,20 +54,16 @@ function createToggles( bSites ) {
         $("." + site.class).prop( "checked", true );
       } else {
         $("." + site.class).prop( "checked", false );
-      }
+      };
+      $("." + site.class).click(function() {
+        console.log($(this).attr("value"));
+        checkBoxToggle($(this).attr("value"));
+      })
       console.log(bSites[i])
       console.log( bSites[i].name )
     }
   }
 }
-
-$(document).on("click", ".toggle-switch", function() {
-  console.log($(this).attr("value"));
-  checkBoxToggle($(this).attr("value"));
-})
-// $(".testing").click(function() {
-//   checkBoxToggle("Facebook")
-// })
 
 
 
@@ -91,7 +87,8 @@ function createListItems( obj ) {
 $("#submit").submit(function() {
   // e.preventDefault();
   var content = {
-    url: $("#add-new").val()
+    "url"       : $("#add-new").val(),
+    "block"     : true
   }
 
   chrome.storage.sync.get("bannedSites", function(obj) {

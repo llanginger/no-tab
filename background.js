@@ -31,25 +31,10 @@ function initializeStorage() {
           }
         ]
       })
+
     }
   })
 }
-
-// var newStorage =
-// { "bannedSites" : [
-//     {
-//       "url"       : "https://www.facebook.com/",
-//       "imgSrc"    : "images/fb.png",
-//       "name"      : "Facebook"
-//     },
-//     {
-//       "url"       : "https://mail.google.com/mail/u/0/#inbox",
-//       "imgSrc"    : "images/gmail.png",
-//       "name"      : "Gmail"
-//     }
-//   ]
-// }
-//
 
 
 chrome.storage.onChanged.addListener( function listenToChanges( changes, areaName ) {
@@ -107,7 +92,7 @@ function getUpdatedTabs() {
         // If there are any sites added to the ban list:
         if ( bannedSites ) {
           for ( var site in bannedSites ) {
-            if ( tab.url.indexOf( bannedSites[site].url ) !== -1 && excludeSites.indexOf( tab.id ) === -1 ){
+            if ( tab.url.indexOf( bannedSites[site].url ) !== -1 && excludeSites.indexOf( tab.id ) === -1 && bannedSites[site].block === true ){
               activeTabs.push({
                 banUrl    : bannedSites[site].url,
                 windowId  : list[i].id,
