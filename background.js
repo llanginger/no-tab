@@ -8,19 +8,54 @@
 var bannedSites = [];
 function initializeStorage() {
   chrome.storage.sync.get( "bannedSites", function(obj) {
-    if ( obj.bannedSites.length > 0 ) {
+    if ( obj.bannedSites ) {
       bannedSites = obj.bannedSites;
-      console.log("current bannedSites storage: " + bannedSites)
+      console.log("current bannedSites storage: " );
+      console.log( bannedSites );
     } else {
       console.log("Initializing storage");
-      chrome.storage.sync.set( { "bannedSites": ["https://www.facebook.com/", "https://mail.google.com/mail/u/0/#inbox"] } )
+      chrome.storage.sync.set( { "bannedSites" : [
+          {
+            "url"       : "https://www.facebook.com/",
+            "imgSrc"    : "images/fb.png",
+            "name"      : "Facebook",
+            "class"     : "facebook",
+            "block"     : false
+          },
+          {
+            "url"       : "https://mail.google.com/mail/u/0/#inbox",
+            "imgSrc"    : "images/gmail.png",
+            "name"      : "Gmail",
+            "class"     : "gmail",
+            "block"     : true
+          }
+        ]
+      })
     }
   })
 }
 
+// var newStorage =
+// { "bannedSites" : [
+//     {
+//       "url"       : "https://www.facebook.com/",
+//       "imgSrc"    : "images/fb.png",
+//       "name"      : "Facebook"
+//     },
+//     {
+//       "url"       : "https://mail.google.com/mail/u/0/#inbox",
+//       "imgSrc"    : "images/gmail.png",
+//       "name"      : "Gmail"
+//     }
+//   ]
+// }
+//
+
+
 chrome.storage.onChanged.addListener( function listenToChanges( changes, areaName ) {
   bannedSites = changes.bannedSites.newValue;
-  console.log( "current bannedSites storage now: " + bannedSites );
+  console.log( "current bannedSites storage now: ");
+  console.log( bannedSites );
   getUpdatedTabs();
   // console.log(changes.bannedSites);
 })
@@ -72,9 +107,9 @@ function getUpdatedTabs() {
         // If there are any sites added to the ban list:
         if ( bannedSites ) {
           for ( var site in bannedSites ) {
-            if ( tab.url.indexOf( bannedSites[site] ) !== -1 && excludeSites.indexOf( tab.id ) === -1 ){
+            if ( tab.url.indexOf( bannedSites[site].url ) !== -1 && excludeSites.indexOf( tab.id ) === -1 ){
               activeTabs.push({
-                banUrl    : bannedSites[site],
+                banUrl    : bannedSites[site].url,
                 windowId  : list[i].id,
                 tabId     : tab.id,
                 url       : tab.url,
