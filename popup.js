@@ -23,6 +23,7 @@ function checkBoxToggle( checkName ) {
   })
 }
 
+
 function findObjByName( name, arr ) {
   for ( var i = 0; i < arr.length; i++ ){
     if ( arr[i].name === name ){
@@ -52,8 +53,8 @@ function createToggles( bSites ) {
         console.log($(this).attr("value"));
         checkBoxToggle($(this).attr("value"));
       })
-      console.log(bSites[i])
-      console.log( bSites[i].name )
+      // console.log(bSites[i])
+      // console.log( bSites[i].name )
     }
   }
 }
@@ -103,4 +104,12 @@ $("#remove-last").click(function() {
     }
   })
   document.location.reload(true);
+})
+
+$(".info").click(function() {
+  $(".grey-filter, .modal-instructions").fadeIn('fast', function() {});
+  $(".grey-filter, .close-info").click(function() {
+    $(".grey-filter, .modal-instructions").fadeOut('fast', function() {
+    });
+  })
 })

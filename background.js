@@ -89,11 +89,36 @@ function initializeStorage() {
 
 chrome.storage.onChanged.addListener( function listenToChanges( changes, areaName ) {
   bannedSites = changes.bannedSites.newValue;
+  for (var site = 0; site < bannedSites.length; site++ ) {
+    if ( bannedSites[site].block === true ) {
+      var blockedUrl = bannedSites[site].url;
+
+      chrome.windows.getAll( { populate: true }, function( list ) {
+        console.log(blockedUrl)
+        // console.log(list);
+        for ( var i in list ) {
+          var tabs = list[i].tabs;
+          for ( var j in tabs ) {
+            var tab = tabs[j]
+            // console.log(tab.url);
+            if ( tab.url.indexOf( blockedUrl ) > -1) {
+              console.log(tab.url);
+            }
+          }
+        }
+      })
+    }
+  }
+  console.log( changes )
   console.log( "current bannedSites storage now: ");
   console.log( bannedSites );
   getUpdatedTabs();
   // console.log(changes.bannedSites);
 })
+
+// checkDuplicates(){
+//
+// }
 
 var activeTabs     = [];
 var excludeSites   = [];
@@ -175,11 +200,11 @@ function tabulatr( tabObj ) {
 
 function logUpdated( tabId, changeInfo, tabInfo ) {
   if ( changeInfo.status === "loading" ) {
-    console.log( "Updated tab: " + tabId );
-    console.log( "Changed attributes: " );
-    console.log( changeInfo );
-    console.log( "New tab Info: " );
-    console.log( tabInfo );
+    // console.log( "Updated tab: " + tabId );
+    // console.log( "Changed attributes: " );
+    // console.log( changeInfo );
+    // console.log( "New tab Info: " );
+    // console.log( tabInfo );
   }
 
 }
@@ -204,7 +229,7 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
       // Starting to add exceptions to be added to excludeSites
       if ( url.indexOf( "?view=cm" ) > 0 || url.indexOf( "compose" ) > 0 ) {
         excludeSites.push( tab.id );
-        console.log( excludeSites );
+        // console.log( excludeSites );
         return;
       }
 
@@ -229,7 +254,7 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
           }
         }
         tabulatr( thisTab );
-        console.log( thisTab )
+        // console.log( thisTab )
         // console.log(bannedSite)
         // console.log(bannedSite + " Exists")
         return;
