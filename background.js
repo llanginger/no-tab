@@ -6,15 +6,23 @@
 // TODO: This code clears the sync storage
 // chrome.storage.sync.clear(function() {});
 var bannedSites = [];
+
+var versionNum = 0.1;
+
 function initializeStorage() {
-  chrome.storage.sync.get( "bannedSites", function(obj) {
-    if ( obj.bannedSites ) {
+  chrome.storage.sync.get( null, function(obj) {
+    if ( obj.bannedSites && obj.version && obj.version === versionNum ) {
       bannedSites = obj.bannedSites;
       console.log("current bannedSites storage: " );
       console.log( bannedSites );
     } else {
       console.log("Initializing storage");
-      chrome.storage.sync.set( { "bannedSites" : [
+      chrome.storage.sync.clear(function() {
+        console.log("clear called")
+      });
+      chrome.storage.sync.set( {
+        "version"       : versionNum,
+        "bannedSites"   : [
           {
             "url"       : "https://mail.google.com/mail/u/0/#inbox",
             "imgSrc"    : "images/gmail.png",
