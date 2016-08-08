@@ -1,14 +1,7 @@
 var console = chrome.extension.getBackgroundPage().console;
 
-
 chrome.storage.sync.get("bannedSites", function(obj) {
   if (obj.bannedSites) {
-
-
-    // if (obj.bannedSites.indexOf( "https://www.facebook.com/" ) > -1 ) {
-    //   console.log("prop found")
-    //   $(".facebook").prop("checked", true);
-    // }
     console.log("Found storage");
     createToggles( obj.bannedSites )
     createListItems( obj );
@@ -43,10 +36,10 @@ function createToggles( bSites ) {
     if ( bSites[i].name ) {
       var site = bSites[i];
       $("#toggle-list").append(
-        '<li class="brand-toggle"><img src="' + site.imgSrc + '" />' +
+        '<li class="brand-toggle"><img class="toggle-img" src="' + site.imgSrc + '" />' +
           '<label class="switch">' +
             '<input class="' + site.class + ' toggle-switch" type="checkbox" value="' + site.name + '">' +
-            '<div class="slider"></div>' +
+            '<div class="slider round"></div>' +
           '</label>' +
         '</li>'
       )
@@ -69,14 +62,11 @@ function createToggles( bSites ) {
 
 
 function createListItems( obj ) {
-  var theList = document.getElementById("ban-list");
-
-
   if (obj.bannedSites.length > 0){
     for (var site = 0; site < obj.bannedSites.length; site++) {
-      var content = document.createElement("li");
-      content.innerHTML = obj.bannedSites[site].url;
-      theList.appendChild(content)
+      if (obj.bannedSites[site].hasOwnProperty("name") === false ){
+        $("#ban-list").append("<div class='list-box'><li>" + obj.bannedSites[site].url + "</li></div>")
+      }
     }
   } else {
     console.log("empty list");
@@ -85,37 +75,32 @@ function createListItems( obj ) {
 
 
 $("#submit").submit(function() {
-  // e.preventDefault();
-  var content = {
-    "url"       : $("#add-new").val(),
-    "block"     : true
+  if ( $("#add-new").val().length > 0 ){
+    // e.preventDefault();
+    var content = {
+      "url"       : $("#add-new").val(),
+      "block"     : true
+    }
+
+    chrome.storage.sync.get("bannedSites", function(obj) {
+      obj.bannedSites.push(content);
+
+      chrome.storage.sync.set(obj);
+      createListItems();
+      console.log(obj);
+    })
+    console.log(content);
   }
-
-  chrome.storage.sync.get("bannedSites", function(obj) {
-    obj.bannedSites.push(content);
-
-    chrome.storage.sync.set(obj);
-    createListItems();
-    console.log(obj);
-  })
-  console.log(content);
 })
 
 $("#remove-last").click(function() {
   chrome.storage.sync.get("bannedSites", function(obj) {
-    obj.bannedSites.pop();
-    chrome.storage.sync.set(obj)
-    console.log(obj);
-    createListItems();
-  })
-})
+    if ( obj.bannedSites[obj.bannedSites.length-1].hasOwnProperty("name") === false ){
+      obj.bannedSites.pop();
+      chrome.storage.sync.set(obj)
+      console.log(obj);
 
-$("#reset").click(function() {
-  chrome.storage.sync.get("bannedSites", function(obj) {
-    obj.bannedSites = [];
-    chrome.storage.sync.set(obj)
-    console.log(obj);
-
-    $("ban-list").empty();
+    }
   })
+  document.location.reload(true);
 })

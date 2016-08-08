@@ -1,29 +1,23 @@
 <html>
   <head>
-
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div id="tabulatr">
       <div id="instructions">
-        <h1>Tabulatr</h1>
-        <p>
-          These instructions will be barebones as this is still a WiP, expect updates as the project progresses!
-        </p>
-        <p>
-          The first list you see displays all sites Tabulatr tracks and acts on.
-          The input below allows you to add whatever addresses you want to this list and the buttons below that allow you to remove or reset the list. For more info, click <a href="https://github.com/llanginger/no-tab/blob/master/readme.md" target="_blank">here.</a>
-        </p>
+        <h1><a class="tab-link" href="https://github.com/llanginger/no-tab/blob/master/readme.md" target="_blank">Tabulatr</a></h1>
       </div>
       <ul id="toggle-list">
       </ul>
+      <p class="custom-sites">To add a site, navigate to the site you want to apply Tabulatr to, copy the URL, paste it into the field below and hit "Add New Site". Please feel free to submit suggestions for sites I should add to the included list <a target="_blank" href="https://github.com/llanginger/no-tab/issues/1">here</a>!</p>
       <ul id="ban-list"></ul>
       <form id="submit">
         <input type="text" id="add-new" type="text" placeholder="Add New Site">
         <input type="submit" id="submit-new" value="Add New Site">
       </form>
       <button id="remove-last">Remove Last</button>
-      <button id="reset">Reset List</button>
     </div>
 
 

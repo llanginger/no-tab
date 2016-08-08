@@ -16,18 +16,60 @@ function initializeStorage() {
       console.log("Initializing storage");
       chrome.storage.sync.set( { "bannedSites" : [
           {
-            "url"       : "https://www.facebook.com/",
-            "imgSrc"    : "images/fb.png",
-            "name"      : "Facebook",
-            "class"     : "facebook",
-            "block"     : false
-          },
-          {
             "url"       : "https://mail.google.com/mail/u/0/#inbox",
             "imgSrc"    : "images/gmail.png",
             "name"      : "Gmail",
             "class"     : "gmail",
             "block"     : true
+          },
+          {
+            "url"       : "https://outlook.live.com/owa/",
+            "imgSrc"    : "images/outlook.png",
+            "name"      : "Hotmail",
+            "class"     : "hotmail",
+            "block"     : true
+          },
+          {
+            "url"       : "https://www.amazon.com/",
+            "imgSrc"    : "images/amazon.png",
+            "name"      : "Amazon",
+            "class"     : "amazon",
+            "block"     : false
+          },
+          {
+            "url"       : "https://twitter.com",
+            "imgSrc"    : "images/twitter.png",
+            "name"      : "Twitter",
+            "class"     : "twitter",
+            "block"     : false
+          },
+          {
+            "url"       : "https://www.facebook.com/",
+            "imgSrc"    : "images/fb.png",
+            "name"      : "Facebook",
+            "class"     : "facebook",
+            "block"     : true
+          },
+          {
+            "url"       : "https://www.pinterest.com/",
+            "imgSrc"    : "images/pinterest.png",
+            "name"      : "Pinterest",
+            "class"     : "pinterest",
+            "block"     : false
+          },
+          {
+            "url"       : "https://www.reddit.com/",
+            "imgSrc"    : "images/reddit.png",
+            "name"      : "Reddit",
+            "class"     : "reddit",
+            "block"     : false
+          },
+          {
+            "url"       : "https://www.youtube.com/",
+            "imgSrc"    : "images/youtube-square.png",
+            "name"      : "Youtube",
+            "class"     : "youtube",
+            "block"     : false
           }
         ]
       })

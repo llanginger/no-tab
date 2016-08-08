@@ -1,14 +1,24 @@
+html {
+  font-size: 10px;
+}
 
 body {
   margin: 0px;
+  font-family: 'Lato', sans-serif;
+
 }
 
+
+
 h1 {
+  font-size: 2.4rem;
+  font-family: 'Lato', sans-serif;
   text-align: center;
   color: white;
 }
 
 p {
+  font-size: 1.4rem;
   padding: 5px;
   background-color: #BBDEFB;
   border: 3px solid #512DA8;
@@ -19,30 +29,66 @@ a {
   outline: none;
 }
 
+.tab-link {
+  color: white;
+  text-decoration: none;
+}
+
+.tab-link:hover {
+  text-decoration: underline;
+}
+
 #tabulatr {
   display: inline-block;
   /*height: 300px;*/
-  width: 300px;
+  width: 400px;
   background: #03A9F4;
   /*border: red solid 3px;*/
   padding: 10px;
 }
 
 #toggle-list {
+  box-sizing: border-box;
+  background-color: #BBDEFB;
+  border: 3px solid #512DA8;
+  width: 100%;
   padding: 0px;
+  padding-bottom: 7px;
   display: flex;
+  /*display: inline-block;*/
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .brand-toggle {
+  background: white;
+  border: 3px solid #512DA8;
+  box-sizing: border-box;
+  padding: 3px;
+  float: left;
   list-style-type: none;
-  justify-content: center;
-  align-items: center;
-  margin-left: 30px;
-  margin-right: 10px;
+  /*justify-content: center;
+  align-items: center;*/
+  margin-right: 3px;
+  margin-left: 3px;
+  margin-top: 10px;
   /*height: 40px;*/
-  width: 40px;
-  /*background: orange;*/
+  width: 20%;
+  /*background: white;*/
+}
+
+.brand-toggle:nth-child(4n) {
+  margin-right: 10px;
+}
+
+.brand-toggle:nth-child(4n+1) {
+  margin-left: 10px;
+}
+
+.toggle-img {
+  padding: 3px;
+  margin-left: 16px;
 }
 
 #ban-list {
@@ -66,10 +112,11 @@ a {
 }
 
 #reset, #remove-last, #submit-new {
-  box-shadow: 3px 3px 5px #444;
+  cursor: pointer;
+  box-shadow: 0px 10px 5px -5px #444;
   border: none;
   color: white;
-  background-color: #512DA8;
+  background-color: #FF4081;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -78,8 +125,26 @@ a {
 }
 
 #reset:hover, #remove-last:hover, #submit-new:hover {
-  box-shadow: 1px 1px 3px #444;
+  box-shadow: 0px 5px 3px -3px #444;
+  transform: translateY(2px);
 }
+
+.list-box {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.list-toggle {
+
+  /*position: absolute;
+  right: 0%;
+  margin-right: 35px;*/
+}
+
+
 
 
 
@@ -87,8 +152,8 @@ a {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 100%;
+  height: 24px;
 }
 
 /* Hide default HTML checkbox */
@@ -96,6 +161,7 @@ a {
 
 /* The slider */
 .slider {
+  /*margin-left: 10px;*/
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -110,8 +176,8 @@ a {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 16px;
+  width: 16px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -120,17 +186,17 @@ a {
 }
 
 input:checked + .slider {
-  background-color: orange;
+  background-color: #8ce196;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px orange;
+  box-shadow: 0 0 1px #8ce196;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(43px);
+  -ms-transform: translateX(43px);
+  transform: translateX(43px);
 }
 
 /* Rounded sliders */
