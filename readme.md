@@ -1,8 +1,7 @@
 # Tabulatr...
 
-<img src="tabulatr.png" />
+<img src="tabulatr_r1.png" />
 
-... is my first shot at a chrome extension. As of now the project is heavily work in progress, so expect any experience with it to be shaky. I'll be iterating on it daily, so if you're interested, check back every now and then!
 
 ## Premise:
 
@@ -14,12 +13,9 @@ Download the repo and unzip. Open chrome's extensions panel, click "Developer mo
 
 ## How to use:
 
-At the moment the functionality is pretty bare-bones. When you first load the extension it'll initialize to add ".facebook" and "mail.google" to the list of addresses to watch. You can add any you want by entering them in the input box, and there are basic tools for clearing the list or only removing the last site on the list (the ui doesn't update automatically on removal, but if you click the extension's icon again it'll display the up to date list). I'm still working on precisely how to ask users to format their entries - for the time being I've found that it's safest to use some version of ".[root domain]" - please feel free to play around with that and let me know what does and does not work!
+Tabulatr comes pre-loaded with a few sites, each of which has a cool little logo and a toggle switch. Toggle-on any sites you know you don't need to have more than one open at a time and/or add any additional sites you'd like in the input box, and watch Tabulatr work its magic. For the moment you'll want to manually close any duplicate tabs you might have had open before running Tabulatr for the first time - this will become automated in a future patch.
 
-Lastly - the functionality of the extension is mostly consistent but it sometimes "forgets" a tab. This is being worked on!
+## Bugs:
 
-Have fun!
-
-## Update 08/03/2016:
-
-Added the beginnings of functionality for exceptions in specific situations. Currently, opening a "compose message" gmail (or other webmail service if you are ignoring them with the extension) link from craigslist (have not yet tested with other sites) will open up a new tab that is completely ignored by the extension. 
+If you find any bugs, please(!) report it <a href="https://github.com/llanginger/no-tab/issues">here</a>!
+Also, if you feel like I have left out any obvious sites from the pre-packaged list, please suggest them <a href="https://github.com/llanginger/no-tab/issues/1">here</a>!
