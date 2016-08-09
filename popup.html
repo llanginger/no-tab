@@ -12,16 +12,21 @@
       <div id="instructions">
         <h1><a class="tab-link" href="https://github.com/llanginger/no-tab/blob/master/readme.md" target="_blank">Tabulatr</a> <i class="fa fa-question-circle-o info" aria-hidden="true"></i></h1>
         <div class="modal-instructions hidden">
-          CONTENT HERE
+          <p class="custom-sites">To add a site, navigate to the site you want to apply Tabulatr to, copy the URL, paste it into the field below and hit "Add New Site". Please feel free to submit suggestions for sites I should add to the included list <a target="_blank" href="https://github.com/llanginger/no-tab/issues/1">here</a>!</p>
+          <p>
+            For the extension to work properly, please make sure you close duplicate tabs of any site you want Tabluatr to work on - this will ensure that you get the correct behavior.
+          </p>
           <button class="close-info">Got It!</button>
         </div>
       </div>
       <ul id="toggle-list">
       </ul>
-      <p class="custom-sites">To add a site, navigate to the site you want to apply Tabulatr to, copy the URL, paste it into the field below and hit "Add New Site". Please feel free to submit suggestions for sites I should add to the included list <a target="_blank" href="https://github.com/llanginger/no-tab/issues/1">here</a>!</p>
-      <ul id="ban-list"></ul>
+      <!-- <ul id="ban-list"></ul> -->
       <form id="submit">
-        <input type="text" id="add-new" type="text" placeholder="Add New Site">
+        <input type="text" id="add-new" type="text" placeholder="Add New Sites Here">
+        <ul id="ban-list">
+          <li class="new-sites">Custom sites:</li>
+        </ul>
         <input type="submit" id="submit-new" value="Add New Site">
       </form>
       <button id="remove-last">Remove Last</button>

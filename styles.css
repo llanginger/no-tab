@@ -30,9 +30,13 @@ body {
 .modal-instructions {
   position: absolute;
   z-index: 100;
-  margin-left: -10px;
-  height: 50%;
-  width: 100%;
+  left: 0px;
+  right: 0px;
+
+  margin-left: auto;
+  margin-right: auto;
+  height: 70%;
+  width: 90%;
   background: white;
 
 }
@@ -47,8 +51,12 @@ h1 {
 p {
   font-size: 1.4rem;
   padding: 5px;
-  background-color: #BBDEFB;
-  border: 3px solid #512DA8;
+  /*background-color: #BBDEFB;
+  border: 3px solid #512DA8;*/
+}
+
+li {
+  font-size: 1.4rem;
 }
 
 a {
@@ -120,22 +128,29 @@ a {
 
 #ban-list {
   background-color: white;
+  margin-top: 0px;
   max-width: 100%;
   max-height: 100px;
-  overflow-y: scroll;
-  border: 1px black solid;
+  overflow-y: auto;
   padding: 10px 0px 10px 10px;
   border: 3px solid #512DA8;
+  border-top: none;
 }
 
 #add-new {
+  cursor: pointer;
   border: 3px solid #512DA8;
+  border-bottom: 1px solid #512DA8;
   outline: none;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
   padding: 10px;
+}
+
+#add-new:focus {
+  cursor: text;
 }
 
 #reset, #remove-last, #submit-new {
@@ -151,9 +166,22 @@ a {
   padding: 10px;
 }
 
-#reset:hover, #remove-last:hover, #submit-new:hover {
+#reset:hover, #remove-last:hover, #submit-new:hover, .close-info:hover {
   box-shadow: 0px 5px 3px -3px #444;
   transform: translateY(2px);
+}
+
+.close-info {
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0px 10px 5px -5px #444;
+  border: none;
+  color: white;
+  background-color: #FF4081;
+  margin-left: calc(50% - 75px);
+  margin-top: 30px;
+  padding: 10px;
+  width: 150px;
 }
 
 .list-box {
@@ -171,6 +199,10 @@ a {
   margin-right: 35px;*/
 }
 
+.new-sites {
+  font-size: 1.2rem;
+  color: #a9a9a9;
+}
 
 
 
