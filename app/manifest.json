@@ -5,17 +5,17 @@
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "tabulogo.png",
+    "default_icon": "images/tabulogo.png",
     "default_popup": "popup.html",
     "default_title": "Tab-U-Later"
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["js/background.js"]
   },
   "content_scripts": [{
     "matches": ["<all_urls>"],
-    "js" : ["clickChecker.js", "jquery-3.1.0.min.js"]
+    "js" : ["js/jquery-3.1.0.min.js"]
   }],
 
   "permissions": [

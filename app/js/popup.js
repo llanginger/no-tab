@@ -1,6 +1,20 @@
 var console = chrome.extension.getBackgroundPage().console;
 
-chrome.storage.sync.get("bannedSites", function(obj) {
+chrome.storage.sync.get(null, function(obj) {
+  console.log(obj)
+  if ( !obj.visited || obj.visited === false) {
+    console.log("First time");
+    $(".grey-filter, .modal-instructions").fadeIn('fast', function() {});
+    $(".grey-filter, .close-info").click(function() {
+      $(".grey-filter, .modal-instructions").fadeOut('fast', function() {
+      });
+    })
+    var storageObj = obj;
+    obj.visited = true;
+    console.log(storageObj)
+
+    chrome.storage.sync.set( storageObj )
+  }
   if (obj.bannedSites) {
     console.log("Found storage");
     createToggles( obj.bannedSites )

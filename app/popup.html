@@ -3,7 +3,7 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://use.fontawesome.com/c639f0bd8a.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 
   </head>
   <body>
@@ -11,8 +11,10 @@
     <div id="tabulatr">
       <div id="instructions">
         <h1><a class="tab-link" href="https://github.com/llanginger/no-tab/blob/master/readme.md" target="_blank">Tabulatr</a> <i class="fa fa-question-circle-o info" aria-hidden="true"></i></h1>
+        <h2>A plugin for better tab management</h2>
         <div class="modal-instructions hidden">
-          <p class="custom-sites">To add a site, navigate to the site you want to apply Tabulatr to, copy the URL, paste it into the field below and hit "Add New Site". Please feel free to submit suggestions for sites I should add to the included list <a target="_blank" href="https://github.com/llanginger/no-tab/issues/1">here</a>!</p>
+          <p><strong>Tabulatr</strong> is an extension that helps to make your browsing experience more efficient by preventing you from opening multiple tabs of websites you only ever need one of open at a time. If you open a tracked site in two separate tabs, Tabulatr will automatically bring the first tab into view and close the second tab, meaning you will never end the day with a bunch of minimized facebook tabs! </p>
+          <p class="custom-sites">To add a site to Tabulatr, navigate to the site you want Tabulatr to work on, copy the URL, paste it into the field below and hit "Add New Site". Please feel free to submit suggestions for sites I should add to the included list <a target="_blank" href="https://github.com/llanginger/no-tab/issues/1">here</a>!</p>
           <p>
             For the extension to work properly, please make sure you close duplicate tabs of any site you want Tabluatr to work on - this will ensure that you get the correct behavior.
           </p>
@@ -23,7 +25,7 @@
       </ul>
       <!-- <ul id="ban-list"></ul> -->
       <form id="submit">
-        <input type="text" id="add-new" type="text" placeholder="Add New Sites Here">
+        <input type="text" id="add-new" type="text" placeholder="Add New Sites Here - Include Suffix If Present (eg; http://, etc)">
         <ul id="ban-list">
           <li class="new-sites">Custom sites:</li>
         </ul>
@@ -33,7 +35,7 @@
     </div>
 
 
-    <script type="text/javascript" src="jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="popup.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
   </body>
 </html>

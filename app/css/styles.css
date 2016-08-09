@@ -21,10 +21,14 @@ body {
   opacity: 0.8;
 }
 .info {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   position:relative;
   top: -10px;
   cursor: pointer;
+}
+
+.info:hover {
+  color: #512DA8;
 }
 
 .modal-instructions {
@@ -32,20 +36,30 @@ body {
   z-index: 100;
   left: 0px;
   right: 0px;
+  top: 10%;
 
   margin-left: auto;
   margin-right: auto;
-  height: 70%;
+  height: 80%;
   width: 90%;
   background: white;
 
 }
 
-h1 {
+h1, h2 {
   font-size: 2.4rem;
   font-family: 'Lato', sans-serif;
   text-align: center;
   color: white;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-top: 5px;
 }
 
 p {
@@ -66,6 +80,7 @@ a {
 
 .tab-link {
   color: white;
+  margin-left: 18px;
   text-decoration: none;
 }
 
@@ -179,7 +194,7 @@ a {
   color: white;
   background-color: #FF4081;
   margin-left: calc(50% - 75px);
-  margin-top: 30px;
+  /*margin-top: 30px;*/
   padding: 10px;
   width: 150px;
 }

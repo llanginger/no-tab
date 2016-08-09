@@ -7,18 +7,15 @@
 // chrome.storage.sync.clear(function() {});
 var bannedSites = [];
 
-var versionNum = 0.1;
+var versionNum = 1.0;
 
 function initializeStorage() {
   chrome.storage.sync.get( null, function(obj) {
     if ( obj.bannedSites && obj.version && obj.version === versionNum ) {
       bannedSites = obj.bannedSites;
-      console.log("current bannedSites storage: " );
-      console.log( bannedSites );
     } else {
       console.log("Initializing storage");
       chrome.storage.sync.clear(function() {
-        console.log("clear called")
       });
       chrome.storage.sync.set( {
         "version"       : versionNum,
@@ -88,30 +85,27 @@ function initializeStorage() {
 
 
 chrome.storage.onChanged.addListener( function listenToChanges( changes, areaName ) {
-  bannedSites = changes.bannedSites.newValue;
-  for (var site = 0; site < bannedSites.length; site++ ) {
-    if ( bannedSites[site].block === true ) {
-      var blockedUrl = bannedSites[site].url;
+  if ( changes.bannedSites ) {
+    bannedSites = changes.bannedSites.newValue;
+    for (var site = 0; site < bannedSites.length; site++ ) {
+      if ( bannedSites[site].block === true ) {
+        var blockedUrl = bannedSites[site].url;
 
-      chrome.windows.getAll( { populate: true }, function( list ) {
-        console.log(blockedUrl)
-        // console.log(list);
-        for ( var i in list ) {
-          var tabs = list[i].tabs;
-          for ( var j in tabs ) {
-            var tab = tabs[j]
-            // console.log(tab.url);
-            if ( tab.url.indexOf( blockedUrl ) > -1) {
-              console.log(tab.url);
+        chrome.windows.getAll( { populate: true }, function( list ) {
+          // console.log(list);
+          for ( var i in list ) {
+            var tabs = list[i].tabs;
+            for ( var j in tabs ) {
+              var tab = tabs[j]
+              // console.log(tab.url);
+              if ( tab.url.indexOf( blockedUrl ) > -1) {
+              }
             }
           }
-        }
-      })
+        })
+      }
     }
   }
-  console.log( changes )
-  console.log( "current bannedSites storage now: ");
-  console.log( bannedSites );
   getUpdatedTabs();
   // console.log(changes.bannedSites);
 })
@@ -142,14 +136,12 @@ chrome.tabs.onActivated.addListener( setCurrentId )
 
 function setCurrentId ( tab ) {
   currentId = tab.tabId;
-  console.log( currentId );
 }
 
 function checkExcludeSites( tabId ) {
   if ( excludeSites.indexOf( tabId ) >= 0 ) {
     var removedTab = excludeSites.indexOf( tabId );
     excludeSites.splice( removedTab, 1 );
-    console.log( excludeSites );
   }
 }
 
@@ -189,7 +181,6 @@ function getUpdatedTabs() {
 
 function tabulatr( tabObj ) {
   if (tabObj.tabUrl) {
-    console.log("redirect url found")
     chrome.tabs.update( tabObj.tabToMove, { url : tabObj.tabUrl })
   }
   chrome.tabs.move(   tabObj.tabToMove, { windowId : tabObj.windowId, index : tabObj.index }, function() {} )
@@ -214,17 +205,13 @@ function logUpdated( tabId, changeInfo, tabInfo ) {
 chrome.tabs.onUpdated.addListener( logUpdated );
 
 chrome.tabs.onCreated.addListener( function( tab )  {
-  console.log( "testing, tab info: ");
-  console.log( tab );
 } )
 
 chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo, tab ) {
   var url = tab.url;
   if ( url != undefined && changeInfo.status === "loading" ) {
     for ( var site = 0; site < activeTabs.length; site++ ) {
-      console.log( "main function fired" );
       var bannedSite = activeTabs[site]
-      console.log( activeTabs[site] )
 
       // Starting to add exceptions to be added to excludeSites
       if ( url.indexOf( "?view=cm" ) > 0 || url.indexOf( "compose" ) > 0 ) {
@@ -237,7 +224,6 @@ chrome.tabs.onUpdated.addListener( function filterForTabulatr( tabId, changeInfo
 
       if ( url.indexOf( bannedSite.banUrl ) !== -1 && tabId !== bannedSite.tabId ) {
         if ( url.length > bannedSite.banUrl.length ) {
-          console.log("longer link clicked")
           thisTab = {
             tabToMove   : bannedSite.tabId,
             windowId    : tab.windowId,
