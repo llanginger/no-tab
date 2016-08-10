@@ -46,7 +46,7 @@ function createToggles( bSites ) {
     if ( bSites[i].name ) {
       var site = bSites[i];
       $("#toggle-list").append(
-        '<li class="brand-toggle"><img class="toggle-img" src="' + site.imgSrc + '" />' +
+        '<li class="brand-toggle"><img class="toggle-img" src="' + site.imgSrc + '" alt="' + site.name + '" title="' + site.name + '"/>' +
           '<label class="switch">' +
             '<input class="' + site.class + ' toggle-switch" type="checkbox" value="' + site.name + '">' +
             '<div class="slider round"></div>' +

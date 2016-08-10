@@ -7,7 +7,7 @@
 // chrome.storage.sync.clear(function() {});
 var bannedSites = [];
 
-var versionNum = 1.0;
+var versionNum = 1.11;
 
 function initializeStorage() {
   chrome.storage.sync.get( null, function(obj) {

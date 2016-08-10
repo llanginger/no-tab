@@ -65,6 +65,8 @@ h2 {
 p {
   font-size: 1.4rem;
   padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   /*background-color: #BBDEFB;
   border: 3px solid #512DA8;*/
 }
